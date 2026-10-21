@@ -286,6 +286,23 @@ on a saturating system:
   <img src="figures/whatif_dose_nonlinear.png" width="90%" alt="Dissertation dose-response, saturating system">
 </p>
 
+## GIFT-Eval
+
+`utils.py` holds the training-free inference recipe of our [GIFT-Eval](https://github.com/SalesforceAIResearch/gift-eval)
+submission (sign-flip x dilation ensemble, short-context stretching, context cap); `pcfm_gifteval.py` evaluates the
+released checkpoint with it on the full suite (97 configurations), and `gifteval.ipynb` runs everything in Colab.
+
+```python
+from utils import load_model, PCFMForecaster
+q = PCFMForecaster(load_model(), prediction_length=48, freq="H").predict([y])   # [9, 48]; freq optional
+```
+
+```bash
+pip install -e gift-eval            # github.com/SalesforceAIResearch/gift-eval
+export GIFT_EVAL=/path/to/gift-eval-data
+python pcfm_gifteval.py             # -> results/all_results.csv (leaderboard format)
+```
+
 ## API summary
 
 | Call | Purpose |
